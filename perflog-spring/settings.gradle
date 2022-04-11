@@ -1,0 +1,4 @@
+rootProject.name = 'perflog-spring'
+
+include 'perflog-core'
+project(':perflog-core').projectDir = new File('../perflog-core')

@@ -1,0 +1,56 @@
+buildscript {
+	ext.springVersion = '2.6.6'
+	ext.slf4jVersion = '1.7.36'
+}
+
+plugins {
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+	id 'java-library'
+	id 'maven-publish'
+}
+
+group = 'io.dotinc'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '8'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compileOnly project(':perflog-core')
+	implementation 'org.springframework:spring-core:5.3.18'
+	implementation "org.slf4j:slf4j-api:$slf4jVersion"
+	implementation "org.springframework.boot:spring-boot-starter-aop:$springVersion"
+}
+
+sourceSets {
+	main {
+		java {
+			srcDir project(':perflog-core').file('src/main/java')
+		}
+	}
+}
+
+tasks.named('jar') {
+	manifest {
+		attributes('Implementation-Title': project.name,
+				'Implementation-Version': project.version)
+	}
+}
+
+publishing {
+	publications {
+		pluginPublication (MavenPublication) {
+			groupId "$group"
+			artifactId 'perflog-spring'
+			version "$version"
+			from components.java
+			pom {
+				name = 'perflog-spring'
+			}
+		}
+	}
+}
+

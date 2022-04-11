@@ -1,0 +1,25 @@
+plugins {
+    id 'java'
+}
+
+group = 'io.dotinc'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '8'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    slf4jVersion = '1.7.36'
+    aspectjVersion = '1.9.9.1'
+    springVersion = '5.3.18'
+}
+
+dependencies {
+    implementation "org.springframework:spring-core:$springVersion"
+    implementation "org.slf4j:slf4j-api:$slf4jVersion"
+    runtimeOnly "org.aspectj:aspectjweaver:$aspectjVersion"
+    runtimeOnly "org.aspectj:aspectjrt:$aspectjVersion"
+    implementation "org.aspectj:aspectjtools:$aspectjVersion"
+}
